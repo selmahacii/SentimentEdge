@@ -1,17 +1,15 @@
-# 🚀 SentimentEdge
-
+#  SentimentEdge
 **Predictive Analytical Engine for Sentiment-Driven Market Movements**
 
 ---
 
-## 📖 Project Overview
+## Project Overview
 **SentimentEdge** is a high-performance analytical platform designed to quantify and leverage social sentiment as a leading indicator for short-term asset price movements. By fusing NLP-derived sentiment scores (Reddit, Google Trends) with classical technical indicators (RSI, MACD, Bollinger Bands), the system trains an **XGBoost Classifier** to predict price directionality (UP/DOWN) over a T+3 horizon with a validated accuracy of 55-65%.
 
 ---
 
-## 🛠️ Technical Stack
-
-### 🧠 Analytical Engine (Python 3.11)
+##  Technical Stack
+### Analytical Engine (Python 3.11)
 - **Machine Learning**: `XGBoost`, `Scikit-learn` (TimeSeriesSplit for leakage prevention).
 - **Natural Language Processing**: 
   - `FinBERT` (ProsusAI): Context-aware financial sentiment analysis.
@@ -56,7 +54,7 @@ graph TD
 
 ---
 
-## 📊 Core Methodology
+## Core Methodology
 
 ### 1. Feature Engineering & Lag Analysis
 Social sentiment is treated as a **non-coincident indicator**. The system computes:
@@ -74,7 +72,7 @@ A deterministic backtesting engine simulates trade execution:
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 SentimentEdge/
@@ -92,7 +90,7 @@ SentimentEdge/
 
 ---
 
-## ⚡ Quick Start
+##  Quick Start
 
 ### 1. Engine Setup
 ```bash
@@ -109,7 +107,7 @@ bun run dev # Next.js at localhost:3000
 
 ---
 
-## 👤 Developer
+##  Developer
 **Selma Haci** — *C E-Modèle*
 
 ---
