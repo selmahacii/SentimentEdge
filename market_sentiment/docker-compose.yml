@@ -1,0 +1,92 @@
+# Market Sentiment Analyzer - Docker Compose
+# 
+# Usage:
+#   docker-compose up -d          # Start services
+#   docker-compose logs -f        # View logs
+#   docker-compose down           # Stop services
+#
+# Services:
+#   - app: Streamlit dashboard (port 8501)
+#   - pipeline: Run full pipeline once
+
+version: '3.8'
+
+services:
+  # Streamlit Dashboard
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentiment-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./models:/app/models
+      - ./.env:/app/.env:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: streamlit run app/streamlit_app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Pipeline Runner (one-time execution)
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentiment-pipeline
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./models:/app/models
+      - ./.env:/app/.env:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python main.py --demo
+    profiles:
+      - pipeline
+
+  # Scheduled Pipeline (cron-like)
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentiment-scheduler
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./models:/app/models
+      - ./.env:/app/.env:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SCHEDULE_TIME=06:00  # Run at 6 AM daily
+    command: |
+      sh -c "
+        while true; do
+          echo 'Running pipeline at '$$(date)
+          python main.py --tickers AAPL TSLA NVDA MSFT AMZN
+          echo 'Sleeping for 24 hours...'
+          sleep 86400
+        done
+      "
+    profiles:
+      - scheduler
+    restart: unless-stopped
+
+# Named volumes for persistence
+volumes:
+  data:
+  logs:
+  models:
+
+# Network configuration
+networks:
+  default:
+    name: sentiment-network

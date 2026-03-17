@@ -1,0 +1,87 @@
+# ============================================================
+# Market Sentiment Analyzer - Production Dependencies
+# ============================================================
+
+# Data Collection
+yfinance==0.2.40                 # Stock prices (free, no API key)
+praw==7.7.1                      # Reddit API client
+pytrends==4.9.2                  # Google Trends unofficial API
+
+# NLP & Sentiment Analysis
+vaderSentiment==3.3.2            # Fast rule-based sentiment analysis
+transformers==4.41.2             # HuggingFace for FinBERT
+torch==2.3.1                     # PyTorch backend for FinBERT
+
+# Technical Analysis
+pandas-ta==0.3.14b0              # Technical indicators (RSI, MACD, BB)
+ta==0.11.0                       # Alternative technical analysis library
+
+# Machine Learning
+xgboost==2.0.3                   # Gradient boosting classifier
+scikit-learn==1.5.0              # Preprocessing, metrics, TimeSeriesSplit
+imbalanced-learn==0.12.3         # Handle class imbalance if needed
+
+# Data Storage
+sqlalchemy==2.0.30               # ORM for SQLite/PostgreSQL
+alembic==1.13.1                  # Database migrations
+psycopg2-binary==2.9.9           # PostgreSQL adapter (optional)
+
+# Configuration & Environment
+pydantic==2.7.4                  # Data validation
+pydantic-settings==2.3.1         # Settings management with .env
+python-dotenv==1.0.1             # Load .env files
+
+# Logging
+loguru==0.7.2                    # Better logging than stdlib
+
+# Visualization
+plotly==5.22.0                   # Interactive charts
+matplotlib==3.9.0                # Static plots
+seaborn==0.13.2                  # Statistical visualizations
+
+# Dashboard
+streamlit==1.38.0                # Web dashboard framework
+streamlit-echarts==0.4.0         # Additional chart components
+st-pages==0.5.0                  # Multi-page support
+
+# GLM API
+zhipuai==2.0.1                   # GLM API client for daily briefs
+
+# Data Processing
+pandas==2.2.2                    # DataFrames (required by almost everything)
+numpy==1.26.4                    # Numerical computing
+scipy==1.13.1                    # Statistical functions
+
+# Date & Time
+python-dateutil==2.9.0.post0     # Date parsing
+pytz==2024.1                     # Timezone handling
+
+# Utilities
+tqdm==4.66.4                     # Progress bars
+requests==2.32.3                 # HTTP requests
+aiohttp==3.9.5                   # Async HTTP (for parallel collection)
+joblib==1.4.2                    # Parallel processing
+
+# Testing
+pytest==8.2.2                    # Test framework
+pytest-asyncio==0.23.7           # Async test support
+pytest-cov==5.0.0                # Coverage reporting
+responses==0.25.0                # Mock HTTP responses
+
+# Code Quality
+ruff==0.4.8                      # Fast linter
+black==24.4.2                    # Code formatter
+isort==5.13.2                    # Import sorting
+mypy==1.10.0                     # Type checking
+
+# Jupyter
+jupyter==1.0.0                   # Notebook interface
+ipykernel==6.29.4                # Jupyter kernel
+ipywidgets==8.1.3                # Interactive widgets
+
+# Deployment
+gunicorn==22.0.0                 # WSGI server (for production)
+uvicorn==0.30.1                  # ASGI server
+
+# Optional: Performance
+numba==0.60.0                    # JIT compilation for hot paths
